@@ -1,0 +1,52 @@
+{
+    "providers": {
+        "namecheap": {
+            "api_url": "https://dynamicdns.park-your-domain.com/update",
+            "required_fields": ["domain", "password", "subdomains"]
+        },
+        "cloudflare": {
+            "api_url": "https://api.cloudflare.com/client/v4/",
+            "required_fields": ["zone_id", "api_token", "subdomains"]
+        },
+        "google": {
+            "api_url": "https://domains.google.com/nic/update",
+            "required_fields": ["domain", "password"]
+        },
+        "aws": {
+            "api_url": "https://route53.amazonaws.com/2013-04-01/",
+            "required_fields": ["access_key", "secret_key", "zone_id", "subdomains"]
+        },
+        "digitalocean": {
+            "api_url": "https://api.digitalocean.com/v2/domains/",
+            "required_fields": ["token", "domain", "subdomains"]
+        },
+        "linode": {
+            "api_url": "https://api.linode.com/v4/domains/",
+            "required_fields": ["token", "domain", "subdomains"]
+        },
+        "cloudns": {
+            "api_url": "https://api.cloudns.net/dynamicURL/",
+            "required_fields": ["auth_id", "password", "domain"]
+        },
+        "duckdns": {
+            "api_url": "https://www.duckdns.org/update",
+            "required_fields": ["domain", "token"]
+        },
+        "dyndns": {
+            "api_url": "https://members.dyndns.org/nic/update",
+            "required_fields": ["hostname", "username", "password"]
+        },
+        "freedns": {
+            "api_url": "https://freedns.afraid.org/nic/update",
+            "required_fields": ["hostname", "password"]
+        },
+        "noip": {
+            "api_url": "https://dynupdate.no-ip.com/nic/update",
+            "required_fields": ["hostname", "username", "password"]
+        },
+        "nsupdate": {
+            "api_url": "https://www.nsupdate.info/nic/update",
+            "required_fields": ["hostname", "key"]
+        }
+    }
+}

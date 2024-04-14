@@ -1,0 +1,86 @@
+#!/usr/bin/env bash
+
+# Constants
+API_URL="https://dynamicdns.park-your-domain.com/update"
+DEFAULT_INTERVAL="1h"
+
+# Function to update DNS
+update_dns() {
+    local domain="$1"
+    local password="$2"
+    local subdomains="$3"
+    local ip="$4"
+
+    local url="$API_URL?domain=$domain&password=$password&ip=$ip"
+
+    IFS=',' read -ra subdomain_list <<< "$subdomains"
+
+    for subdomain in "${subdomain_list[@]}"; do
+        subdomain=$(echo "$subdomain" | tr -d '[:space:]')
+        local request_url="$url&host=$subdomain"
+        local response=$(curl -s --connect-timeout 10 "$request_url")
+
+        if [[ $response =~ "<ErrCount>" ]]; then
+            local error_msg=$(echo "$response" | gawk 'match($0, /<Err1>(.*)<\/Err1>/, arr) { print arr[1] }')
+            if [[ -n $error_msg ]]; then
+                echo "ERROR: $error_msg" >&2
+                exit 1
+            else
+                local new_ip=$(echo "$response" | gawk 'match($0, /<IP>(.*)<\/IP>/, arr) { print arr[1] }')
+                echo "Subdomain $subdomain.$domain updated to IP: $new_ip"
+            fi
+        fi
+    done
+}
+
+# Function to display usage information
+show_help() {
+    cat << EOF
+Usage: ${0##*/} [-h] [-d DOMAIN] [-s SUBDOMAINS] [-p PASSWORD] [-i IP] [-t INTERVAL]
+
+Options:
+  -h               Display this help message
+  -d DOMAIN        Domain name
+  -s SUBDOMAINS    Comma-separated list of subdomains
+  -p PASSWORD      Dynamic DNS password for the domain
+  -i IP            IP address to set (optional)
+  -t INTERVAL      Interval for updating DNS records (default: $DEFAULT_INTERVAL)
+EOF
+}
+
+# Parse arguments
+while getopts "hd:s:p:i:t:" opt; do
+    case "$opt" in
+        h) show_help; exit 0 ;;
+        d) DOMAIN="$OPTARG" ;;
+        s) SUBDOMAINS="$OPTARG" ;;
+        p) PASSWORD="$OPTARG" ;;
+        i) IP="$OPTARG" ;;
+        t) INTERVAL="$OPTARG" ;;
+        *) show_help >&2; exit 1 ;;
+    esac
+done
+shift "$((OPTIND-1))"
+
+# Validate required arguments
+if [[ -z $DOMAIN || -z $PASSWORD ]]; then
+    echo "Error: DOMAIN and PASSWORD are required." >&2
+    show_help >&2
+    exit 1
+fi
+
+# Default IP to current public IP if not provided
+if [[ -z $IP ]]; then
+    IP=$(curl -s ifconfig.me)
+fi
+
+# Run update_dns function
+update_dns "$DOMAIN" "$PASSWORD" "$SUBDOMAINS" "$IP"
+
+# Run in a loop if interval is provided
+if [[ -n $INTERVAL ]]; then
+    while true; do
+        sleep "$INTERVAL"
+        update_dns "$DOMAIN" "$PASSWORD" "$SUBDOMAINS" "$IP"
+    done
+fi
