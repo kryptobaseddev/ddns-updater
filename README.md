@@ -20,8 +20,6 @@ This Python script runs as a Docker container, updating your DNS records with yo
 3. Build the Docker image using `docker-compose build`.
 4. Run the Docker container using `docker-compose up`.
 
-## Usage
-
 ### Environment Variables
 
 Before running the container, you need to set up the following environment variables:
@@ -44,26 +42,6 @@ The `config.json` file contains configurations specific to the top common DNS pr
 docker-compose build
 docker-compose up
 ```
-
-## Support
-
-For any issues or questions, please [open an issue](https://github.com/yourusername/your-repo/issues).
-
-## License
-
-This project is licensed under the MIT License - see the [LICENSE](LICENSE) file for details.
-
-The Docker Hub overview file has been updated as follows:
-
-**Dynamic DNS Updater**
-
-This Docker image provides a lightweight solution for dynamically updating DNS records using various DNS providers. It can be used to automatically update the IP address of your domain's A records based on your current public IP address.
-
-**Features:**
-- Supports multiple DNS providers, including Namecheap, Cloudflare, Google Domains, and more.
-- Configurable via environment variables for easy customization.
-- Automatically updates DNS records at specified intervals.
-- Compatible with any DNS provider that supports dynamic DNS updates.
 
 **Usage:**
 
@@ -99,6 +77,8 @@ This Docker image provides a lightweight solution for dynamically updating DNS r
    - Under Network, select `bridge` and click next.
    - Validate the settings, chekcing `Run this container...` and click `Done` to start the container.
 
+For detailed usage instructions, configuration options, and supported DNS providers, please refer to the [GitHub repository](https://github.com/kryptobaseddev/ddns-updater).
+
 **Supported DNS Providers:**
 
 | Provider Name | Variable Name | Required Fields                        |
@@ -117,3 +97,11 @@ This Docker image provides a lightweight solution for dynamically updating DNS r
 | nsupdate      | DNS_PROVIDER  | hostname, key                          |
 
 **Note:** This image assumes familiarity with Docker and basic DNS management concepts. It is recommended for users who need a simple and automated solution for updating DNS records.
+
+## Support
+
+For any issues or questions, please [open an issue](https://github.com/yourusername/your-repo/issues).
+
+## License
+
+This project is licensed under the MIT License - see the [LICENSE](LICENSE) file for details.
