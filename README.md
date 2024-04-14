@@ -43,7 +43,7 @@ docker-compose up
 
 ## Support
 
-For any issues or questions, please [open an issue](https://github.com/yourusername/your-repo/issues).
+For any issues or questions, please [open an issue](https://github.com/kryptobaseddev/ddns-updater/issues).
 
 ## License
 
