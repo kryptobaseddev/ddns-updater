@@ -99,8 +99,6 @@ This Docker image provides a lightweight solution for dynamically updating DNS r
    - Under Network, select `bridge` and click next.
    - Validate the settings, chekcing `Run this container...` and click `Done` to start the container.
 
-For detailed usage instructions, configuration options, and supported DNS providers, please refer to the [GitHub repository](https://github.com/kryptobaseddev/ddns-updater).
-
 **Supported DNS Providers:**
 
 | Provider Name | Variable Name | Required Fields                        |
