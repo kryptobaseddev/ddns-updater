@@ -113,9 +113,7 @@ For detailed usage instructions, configuration options, and supported DNS provid
 | Linode        | DNS_PROVIDER  | token, domain, subdomains              |
 | CloudNS       | DNS_PROVIDER  | auth_id, password, domain              |
 | DuckDNS       | DNS_PROVIDER  | domain, token                          |
-| DynDNS        | DNS_PROVIDER  | hostname, username, password          
-
- |
+| DynDNS        | DNS_PROVIDER  | hostname, username, password           |
 | FreeDNS       | DNS_PROVIDER  | hostname, password                     |
 | No-IP         | DNS_PROVIDER  | hostname, username, password           |
 | nsupdate      | DNS_PROVIDER  | hostname, key                          |
